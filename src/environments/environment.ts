@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase : {
+    apiKey: "AIzaSyCBoAGrVtkYE-6LwzmYBjSOODJNgBfq358",
+    authDomain: "crenexa-text.firebaseapp.com",
+    databaseURL: "https://crenexa-text.firebaseio.com",
+    projectId: "crenexa-text",
+    storageBucket: "crenexa-text.appspot.com",
+    messagingSenderId: "985885430465",
+    appId: "1:985885430465:web:fbcee40bbccdbee4f47a40",
+    measurementId: "G-TYWB9VGW68"
+  }
 };
 
 /*

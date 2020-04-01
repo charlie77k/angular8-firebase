@@ -1,0 +1,72 @@
+<div class="container-fluid">
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a>Home</a></li>
+                    <li><a>About</a></li>
+                    <li><a>Contact</a></li>
+                    <li (click)=logOut()><a>Log Out</a></li>
+                </ul>
+
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
+    </nav>
+
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <h1>Welcome to Dashboard</h1>
+    </div>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-5 col-xs-5 col-lg-5 col-sm-5">
+                <p>Uploaded File List</p>
+                <div *ngFor="let item of list;let i = index">
+                    <li>
+                        <label>{{i}}</label>
+                        <img [src]="item.downloadURL" style="width:50px;"><br>
+                        <a [href]="item.downloadURL" target="_blank" rel="noopener" style="margin-left: 10px;">Download Me!</a>
+                    </li>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-6 col-lg-6 col-sm-6 dropzone" dropzone (hovered)="toggleHover($event)" (dropped)="onDrop($event)" [class.hovering]="isHovering">
+                <p>Drag and Drop a File</p>
+                <div class="file">
+                    <label class="file-label">
+                <input class="file-input" type="file" (change)="onDrop($event.target.files)">
+                    <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fa fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                        or choose a file…
+                    </span>
+                    </span>
+                </label>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12" style="padding: 20px;">
+                <div *ngFor="let file of files">
+                    <hr>
+                    <h3>Uploading Status</h3>
+                    <app-upload-task [file]="file"></app-upload-task>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /container -->
