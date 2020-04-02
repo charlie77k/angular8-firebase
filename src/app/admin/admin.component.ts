@@ -7,7 +7,7 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Component({
   selector: 'app-admin',
@@ -24,23 +24,38 @@ export class AdminComponent implements OnInit {
   percentage: Observable<number>;
   snapshot: Observable<any>;
   downloadURL: string;
-  items: any;
+  items: AngularFireList<any> = null;
 
-  constructor(private storage: AngularFireStorage, private db: AngularFireDatabase , private authService:  AuthService, public  afAuth:  AngularFireAuth, public  router:  Router) { }
+  constructor(
+    private storage: AngularFireStorage,
+    private firestore: AngularFirestore, //cloud firebase 
+    private db: AngularFireDatabase , 
+    private authService:  AuthService, 
+    public  afAuth:  AngularFireAuth,
+    public  router:  Router) { }
 
-  ngOnInit() {
-    this.items = this.db.list('files').valueChanges();
-    this.items.subscribe( e => {
-      this.list = e;
-        console.log(e);
+  ngOnInit() { //load all upladed files
+    this.firestore.collection('files').snapshotChanges().subscribe( res => {
+      this.list =  res.map(e => {
+              return {
+                id: e.payload.doc.id ,
+                downloadURL: e.payload.doc.data()['downloadURL'], 
+                path: e.payload.doc.data()['path'],   
+              } })
+        // console.log(this.list);        
     })
   }
 
+  onClickDelete(id){ 
+    this.firestore.doc('files/' + id).delete();
+    
+ }
 
   toggleHover(event: boolean) {
     this.isHovering = event;
   }
 
+  //push file to upload task component
   onDrop(files: FileList) {
     for (let i = 0; i < files.length; i++) {
       this.files.push(files.item(i));
@@ -52,3 +67,14 @@ export class AdminComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 }
+
+
+
+
+
+
+    // this.items = this.db.list('/files')
+    // this.items.valueChanges().subscribe( e => {
+    //   this.list = e;
+    //     console.log(e);
+    // })

@@ -28,14 +28,14 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 Use npm command 
-    npm install firebase @angular/fire --save
+    `npm install firebase @angular/fire --save`
 
     //sudo apt-get install putty
 
 Setup :
-    npm install
+    `npm install`
 
 Run App: 
-    ng serve
+    `ng serve`
 
 

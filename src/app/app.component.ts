@@ -18,7 +18,6 @@ export class AppComponent {
   }
 
   onSubmit(from:NgForm){
-    // console.log(from.value);
     this.db.list('items').push({name:this.itemValue})
     this.itemValue = '';
   }

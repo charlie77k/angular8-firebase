@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
     this.items = db.list('users').valueChanges();
   }
 
-
-
   ngOnInit(){}
 
   onClickRegister(){
@@ -60,13 +58,6 @@ export class LoginComponent implements OnInit {
       });  
   }
 
-      // this.db.list('users').push(form)
-  // firebase.app().database().ref("users").orderByChild("email")
-  // .equalTo(data.email).once("value", snapshot => {
-  //  const userData = snapshot.val();
-  //  console.log("exists!", userData);
-  // })
-
   signInWithFacebook() {
     return this.afAuth.auth.signInWithPopup(
       new firebase.auth.FacebookAuthProvider()
@@ -85,3 +76,22 @@ export class LoginComponent implements OnInit {
     )
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+   // this.db.list('users').push(form)
+  // firebase.app().database().ref("users").orderByChild("email")
+  // .equalTo(data.email).once("value", snapshot => {
+  //  const userData = snapshot.val();
+  //  console.log("exists!", userData);
+  // })
